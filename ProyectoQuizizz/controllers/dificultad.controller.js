@@ -21,7 +21,8 @@ const getDificultades = async (req, res) => {
 
 const getDificultadById = async (req, res) => {
   try {
-    const dificultad = await dificultadService.getDificultadById(req.params.id);
+    const id = req.params.id;
+    const dificultad = await dificultadService.getDificultadById(id);
     if (!dificultad) return res.status(404).json({ message: 'Dificultad no encontrada' });
     res.status(200).json(dificultad);
   } catch (error) {
@@ -31,7 +32,9 @@ const getDificultadById = async (req, res) => {
 
 const updateDificultad = async (req, res) => {
   try {
-    const dificultadActualizada = await dificultadService.updateDificultad(req.params.id, req.body);
+    const id = req.params.id;
+    const data = req.body;
+    const dificultadActualizada = await dificultadService.updateDificultad(id, data);
     if (!dificultadActualizada) return res.status(404).json({ message: 'Dificultad no encontrada' });
     res.status(200).json(dificultadActualizada);
   } catch (error) {
@@ -41,7 +44,8 @@ const updateDificultad = async (req, res) => {
 
 const deleteDificultad = async (req, res) => {
   try {
-    const dificultadEliminada = await dificultadService.deleteDificultad(req.params.id);
+    const id = req.params.id;
+    const dificultadEliminada = await dificultadService.deleteDificultad(id);
     if (!dificultadEliminada) return res.status(404).json({ message: 'Dificultad no encontrada' });
     res.status(200).json({ message: 'Dificultad eliminada correctamente' });
   } catch (error) {

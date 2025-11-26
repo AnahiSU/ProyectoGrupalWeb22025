@@ -3,7 +3,6 @@ const rangoService = require('../services/rangos.service');
 const createRango = async (req, res) => {
   try {
     const data = req.body;
-    console.log(data);
     const nuevoRango = await rangoService.createRango(data);
     res.status(201).json({ success: true, nuevoRango });
   } catch (error) {
@@ -33,7 +32,9 @@ const getRangoById = async (req, res) => {
 
 const updateRango = async (req, res) => {
   try {
-    const rangoActualizado = await rangoService.updateRango(req.params.id, req.body);
+    const id = req.params.id;
+    const data = req.body;
+    const rangoActualizado = await rangoService.updateRango(id, data);
     if (!rangoActualizado) return res.status(404).json({ message: 'Rango no encontrado' });
     res.status(200).json({ success: true, rangoActualizado });
   } catch (error) {
@@ -43,7 +44,8 @@ const updateRango = async (req, res) => {
 
 const deleteRango = async (req, res) => {
   try {
-    const rangoEliminado = await rangoService.deleteRango(req.params.id);
+    const id = req.params.id;
+    const rangoEliminado = await rangoService.deleteRango(id);
     if (!rangoEliminado) return res.status(404).json({ message: 'Rango no encontrado' });
     res.status(200).json({ success: true,message: 'Rango eliminado correctamente'});
   } catch (error) {
