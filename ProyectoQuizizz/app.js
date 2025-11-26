@@ -10,6 +10,10 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const dificultadRouter = require('./routes/dificultad.routes');
 const rangoRouter = require('./routes/rangos.routes');
+
+const categoriaRouter = require('./routes/categoria.routes');
+const subCategoriaRouter = require('./routes/subcategoria.routes');
+
 const connectDB = require('./config/database');
 
 const app = express();
@@ -23,8 +27,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 
-app.use('/dificultad', dificultadRouter );
+app.use('/dificultad', dificultadRouter);
 app.use('/rango', rangoRouter);
+
+app.use('/categoria', categoriaRouter);
+app.use('/subcategoria', subCategoriaRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
