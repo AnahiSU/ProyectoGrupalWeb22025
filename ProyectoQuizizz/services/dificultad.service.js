@@ -5,7 +5,6 @@ const createDificultad = async (data) => {
 };
 
 const getDificultades = async () => {
-  // .populate('ageRange') rellena los datos del ID con el objeto completo del rango
   return await NivelDificultad.find().populate('ageRange');
 };
 
@@ -14,7 +13,6 @@ const getDificultadById = async (id) => {
 };
 
 const updateDificultad = async (id, data) => {
-  // populate también al actualizar para devolver el objeto completo
   return await NivelDificultad.findByIdAndUpdate(id, data, { new: true }).populate('ageRange');
 };
 

@@ -1,4 +1,4 @@
-const { RangoEdad } = require('../models/rangoEdad'); // Ajusta la ruta a tu archivo de modelos
+const { RangoEdad } = require('../models/rangoEdad');
 
 const createRango = async (rangoData) => {
   return await RangoEdad.create(rangoData);
@@ -13,7 +13,6 @@ const getRangoById = async (id) => {
 };
 
 const updateRango = async (id, rangoData) => {
-  // { new: true } devuelve el objeto ya actualizado
   return await RangoEdad.findByIdAndUpdate(id, rangoData, { new: true });
 };
 
