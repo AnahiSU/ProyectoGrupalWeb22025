@@ -1,21 +1,18 @@
 const mongoose = require('mongoose');
 
-
-const mongoURI = process.env.MONGO_URI;
-
+// Leemos la variable. Si no existe, lanza error (mejor que fallar en silencio)
+const dbURI = process.env.MONGO_URI;
 
 const connectDB = async () => {
     try {
-        await mongoose.connect(mongoURI);
-        console.log('conectao')
+        if (!dbURI) {
+            throw new Error('❌ La variable MONGO_URI no está definida en el archivo .env');
+        }
+        await mongoose.connect(dbURI);
 
     } catch (error) {
-
-        console.error(err.message);
-        process.exit(1);
-
+        process.exit(1); // Detiene la app porque sin BD no sirve de nada
     }
 };
-
 
 module.exports = connectDB;
