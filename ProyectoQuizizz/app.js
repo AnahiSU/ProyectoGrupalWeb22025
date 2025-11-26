@@ -10,9 +10,10 @@ const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
 const dificultadRouter = require('./routes/dificultad.routes');
 const rangoRouter = require('./routes/rangos.routes');
+const connectDB = require('./config/database');
 
 const app = express();
-
+connectDB();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
