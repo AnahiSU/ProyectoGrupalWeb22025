@@ -27,7 +27,7 @@ export async function register(nombre, password, email, rol){
         }
         delete res.password;
         return res;
-    }catch(err){
-        throw new Error('Error al registrar: '+ err.message);
+    } catch (err) {
+        throw new Error('Error al registrar: ' + err.message);
     }
 }

@@ -13,6 +13,25 @@ async function register(req,res){
     }
 }
 
+
+async function login(req, res) {
+    try {
+        const { nombre, password, email, rol } = req.body;
+        const data = await authService.login(nombre, password, email, rol);
+        res.status(200).json({
+            succes: true,
+            message: "Login exitoso"
+        });
+    } catch (err) {
+        res.status(500).json({
+            sucess: false,
+            message: "error al logear" + err.message
+        });
+    }
+
+}
+
 modules.exports = {
     register,
+    login
 }
