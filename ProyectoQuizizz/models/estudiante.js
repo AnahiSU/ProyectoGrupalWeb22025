@@ -18,10 +18,6 @@ const EstudianteSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    puntajeTotal: { 
-        type: Number,
-        default: 0
-    }
 }, {
     timestamps: true
 });

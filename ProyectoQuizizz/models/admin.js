@@ -8,7 +8,14 @@ const AdminSchema = new mongoose.Schema({
         trim: true,
         unique: true 
     },
-    contrasena: {
+    email: { 
+        type: String,
+        required: true,
+        unique: true, 
+        trim: true,
+        lowercase: true
+    },
+    password: {
         type: String,
         required: true
     }
