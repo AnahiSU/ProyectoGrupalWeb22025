@@ -1,6 +1,6 @@
 const authService = require('../services/auth.service.js');
 
-async function register(req,res){
+export async function register(req,res){
     try{
         const {nombre, password, email,rol} = req.body;
         if(!nombre || !password || !rol || !email){
@@ -14,7 +14,7 @@ async function register(req,res){
 }
 
 
-async function login(req, res) {
+export async function login(req, res) {
     try {
         const { nombre, password, email, rol } = req.body;
         const data = await authService.login(nombre, password, email, rol);
@@ -31,7 +31,3 @@ async function login(req, res) {
 
 }
 
-modules.exports = {
-    register,
-    login
-}

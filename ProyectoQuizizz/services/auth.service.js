@@ -31,3 +31,25 @@ export async function register(nombre, password, email, rol){
         throw new Error('Error al registrar: ' + err.message);
     }
 }
+
+export async function login(nombre, password, email, rol) {
+
+    try {
+        if (rol === 'admin') {
+            const estudiante = await Estudiante.findOne({
+                nombre: nombre,
+                email: email
+            });
+            return estudiante.compararPassword(password);
+        } else {
+            const admin = await Admin.findOne({
+                nombre: nombre,
+                email: email
+            });
+            return admin.compararPassword(password);
+        }
+    } catch (err) {
+        throw new Error('Error al logear: ' + err.message);
+    }
+}
+
