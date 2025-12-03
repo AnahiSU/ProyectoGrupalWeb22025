@@ -46,7 +46,7 @@ async function login(nombre, password, email, rol) {
                 id: estudiante._id,
                 rol: 'estudiante'
             };
-            if (estudiante.compararPassword(password)) {
+            if (await estudiante.compararPassword(password)) {
                 const token = jwt.sign(
                     payload,
                     process.env.JWT_SECRET,
@@ -69,7 +69,7 @@ async function login(nombre, password, email, rol) {
                 id: admin._id,
                 rol: 'admin'
             };
-            if (admin.compararPassword(password)) {
+            if (await admin.compararPassword(password)) {
                 const token = jwt.sign(
                     payload,
                     process.env.JWT_SECRET,

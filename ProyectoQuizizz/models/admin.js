@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const bcrypt = require('bcryptjs'); // Librería para encriptar
+const bcrypt = require('bcryptjs');
 
 const AdminSchema = new mongoose.Schema({
     nombre: {
@@ -15,27 +15,28 @@ const AdminSchema = new mongoose.Schema({
         trim: true,
         lowercase: true
     },
-    password: {
+    password: { 
         type: String,
         required: true
     }
 }, {
     timestamps: true
 });
-AdminSchema.pre('save', async function(next) {
-    if (!this.isModified('contrasena')) return next();
+
+
+AdminSchema.pre('save', async function() {
+    if (!this.isModified('password')) return; 
 
     try {
         const salt = await bcrypt.genSalt(10);
-        this.contrasena = await bcrypt.hash(this.contrasena, salt);
-        next();
+        this.password = await bcrypt.hash(this.password, salt); 
     } catch (error) {
-        next(error);
+        throw new Error('Error al encriptar contraseña admin');
     }
 });
 
 AdminSchema.methods.compararPassword = async function(passwordIngresado) {
-    return await bcrypt.compare(passwordIngresado, this.contrasena);
+    return await bcrypt.compare(passwordIngresado, this.password); // Usar password
 };
 
 module.exports = mongoose.model('Admin', AdminSchema);
