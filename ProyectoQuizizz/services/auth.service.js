@@ -34,58 +34,50 @@ async function register(nombre, password, email, rol) {
     }
 }
 
-async function login(nombre, password, email, rol) {
+async function login(nombre, password, email, rol) { 
 
     try {
+        let usuarioEncontrado;
+        let rolEnToken;
+
         if (rol === 'admin') {
-            const estudiante = await Estudiante.findOne({
-                nombre: nombre,
-                email: email
-            });
-            const payload = {
-                id: estudiante._id,
-                rol: 'estudiante'
-            };
-            if (await estudiante.compararPassword(password)) {
-                const token = jwt.sign(
-                    payload,
-                    process.env.JWT_SECRET,
-                    { expiresIn: '1h' }
-                );
-                const infoEstudiante = estudiante.toObject();
-                delete infoEstudiante.password;
-
-                return {
-                    token,
-                    usuario: infoEstudiante
-                };
-            }
+            usuarioEncontrado = await Admin.findOne({ email: email, nombre: nombre });
+            rolEnToken = 'admin';
         } else {
-            const admin = await Admin.findOne({
-                nombre: nombre,
-                email: email
-            });
-            const payload = {
-                id: admin._id,
-                rol: 'admin'
-            };
-            if (await admin.compararPassword(password)) {
-                const token = jwt.sign(
-                    payload,
-                    process.env.JWT_SECRET,
-                    { expiresIn: '1h' }
-                );
-                const infoAdmin = admin.toObject();
-                delete infoAdmin.password;
-
-                return {
-                    token,
-                    usuario: infoAdmin
-                };
-            }
+            usuarioEncontrado = await Estudiante.findOne({ email: email, nombre: nombre });
+            rolEnToken = 'estudiante';
         }
+
+        if (!usuarioEncontrado) {
+            throw new Error('Usuario no encontrado o correo incorrecto');
+        }
+
+        const esCorrecta = await usuarioEncontrado.compararPassword(password);
+        
+        if (!esCorrecta) {
+            throw new Error('Contraseña incorrecta');
+        }
+        const payload = {
+            id: usuarioEncontrado._id, 
+            rol: rolEnToken
+        };
+
+        const token = jwt.sign(
+            payload,
+            process.env.JWT_SECRET,
+            { expiresIn: '1h' }
+        );
+
+        const infoUsuario = usuarioEncontrado.toObject();
+        delete infoUsuario.password;
+
+        return {
+            token,
+            usuario: infoUsuario
+        };
+
     } catch (err) {
-        throw new Error('Error al logear: ' + err.message);
+        throw new Error(err.message);
     }
 }
 
