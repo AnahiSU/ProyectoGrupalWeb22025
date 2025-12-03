@@ -1,20 +1,20 @@
 const authService = require('../services/auth.service.js');
 
-export async function register(req,res){
-    try{
-        const {nombre, password, email,rol} = req.body;
-        if(!nombre || !password || !rol || !email){
-            return res.status(400).json({success:false, message:"Faltan datos obligatorios"});
+async function register(req, res) {
+    try {
+        const { nombre, password, email, rol } = req.body;
+        if (!nombre || !password || !rol || !email) {
+            return res.status(400).json({ success: false, message: "Faltan datos obligatorios" });
         }
         const data = await authService.register(nombre, password, email, rol);
-        res.status(200).json({success:true, message:"Registro exitoso",data});
-    }catch(err){
-        res.status(500).json({success: false, message: err.message});
+        res.status(200).json({ success: true, message: "Registro exitoso", data });
+    } catch (err) {
+        res.status(500).json({ success: false, message: err.message });
     }
 }
 
 
-export async function login(req, res) {
+async function login(req, res) {
     try {
         const { nombre, password, email, rol } = req.body;
         const data = await authService.login(nombre, password, email, rol);
@@ -31,3 +31,8 @@ export async function login(req, res) {
 
 }
 
+
+module.exports = {
+    register,
+    login
+}

@@ -1,25 +1,25 @@
-const { Estudiante } = require( '../models/estudiante.js');
-const { Admin } = require( '../models/admin.js');
+const Estudiante = require('../models/estudiante.js');
+const Admin = require('../models/admin.js');
 const jwt = require('jsonwebtoken');
 
-export async function register(nombre, password, email, rol){
-    try{
-        
+async function register(nombre, password, email, rol) {
+    try {
+
         let res;
         const datos = {
             email,
             nombre,
             password
         }
-        if(rol === 'admin'){
+        if (rol === 'admin') {
             const flag = await Admin.findOne({ email: email });
             if (flag) {
                 throw new Error('El correo electronico ya esta registrado');
             }
             const nuevoAdmin = await Admin.create(datos);
             res = nuevoAdmin.toObject();
-            
-        }else{
+
+        } else {
             const flag = await Estudiante.findOne({ email: email });
             if (flag) {
                 throw new Error('El correo electronico ya esta registrado');
@@ -34,7 +34,7 @@ export async function register(nombre, password, email, rol){
     }
 }
 
-export async function login(nombre, password, email, rol) {
+async function login(nombre, password, email, rol) {
 
     try {
         if (rol === 'admin') {
@@ -44,19 +44,19 @@ export async function login(nombre, password, email, rol) {
             });
             const payload = {
                 id: estudiante._id,
-                rol: 'estudiante' 
+                rol: 'estudiante'
             };
-            if(estudiante.compararPassword(password)){
+            if (estudiante.compararPassword(password)) {
                 const token = jwt.sign(
                     payload,
                     process.env.JWT_SECRET,
-                    { expiresIn: '1h' } 
+                    { expiresIn: '1h' }
                 );
                 const infoEstudiante = estudiante.toObject();
                 delete infoEstudiante.password;
-    
+
                 return {
-                    token, 
+                    token,
                     usuario: infoEstudiante
                 };
             }
@@ -67,19 +67,19 @@ export async function login(nombre, password, email, rol) {
             });
             const payload = {
                 id: admin._id,
-                rol: 'admin' 
+                rol: 'admin'
             };
-            if(admin.compararPassword(password)){
+            if (admin.compararPassword(password)) {
                 const token = jwt.sign(
                     payload,
                     process.env.JWT_SECRET,
-                    { expiresIn: '1h' } 
+                    { expiresIn: '1h' }
                 );
                 const infoAdmin = admin.toObject();
                 delete infoAdmin.password;
-    
+
                 return {
-                    token, 
+                    token,
                     usuario: infoAdmin
                 };
             }
@@ -89,3 +89,7 @@ export async function login(nombre, password, email, rol) {
     }
 }
 
+module.exports = {
+    register,
+    login
+}

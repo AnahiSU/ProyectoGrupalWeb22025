@@ -9,11 +9,12 @@ const verificarToken = (req, res, next) => {
 
     try {
         const verified = jwt.verify(token, process.env.JWT_SECRET);
-        req.user = verified; 
-        next(); 
+        req.user = verified;
+        next();
     } catch (error) {
         res.status(400).json({ message: 'Token no válido o expirado' });
     }
 };
 
-module.exports = verificarToken;
+module.exports =
+    verificarToken;

@@ -7,14 +7,14 @@ const EstudianteSchema = new mongoose.Schema({
         required: true,
         trim: true
     },
-    email: { 
+    email: {
         type: String,
         required: true,
-        unique: true, 
+        unique: true,
         trim: true,
         lowercase: true
     },
-    password: { 
+    password: {
         type: String,
         required: true
     },
@@ -28,9 +28,8 @@ EstudianteSchema.pre('save', async function(next) {
     try {
         const salt = await bcrypt.genSalt(10);
         this.password = await bcrypt.hash(this.password, salt);
-        next();
     } catch (error) {
-        next(error);
+        console.log(error);
     }
 });
 

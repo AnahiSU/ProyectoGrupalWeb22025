@@ -14,6 +14,9 @@ const rangoRouter = require('./routes/rangos.routes');
 const categoriaRouter = require('./routes/categoria.routes');
 const subCategoriaRouter = require('./routes/subcategoria.routes');
 
+const authRouter = require('./routes/auth.routes');
+
+
 const connectDB = require('./config/database');
 
 const app = express();
@@ -32,7 +35,7 @@ app.use('/rango', rangoRouter);
 
 app.use('/categoria', categoriaRouter);
 app.use('/subcategoria', subCategoriaRouter);
-
+app.use('/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
