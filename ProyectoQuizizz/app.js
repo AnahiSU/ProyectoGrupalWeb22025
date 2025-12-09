@@ -5,6 +5,8 @@ const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 require('dotenv').config();
 
+const https = require('https'); 
+const fs = require('fs');
 
 const indexRouter = require('./routes/index');
 const usersRouter = require('./routes/users');
@@ -16,11 +18,12 @@ const subCategoriaRouter = require('./routes/subcategoria.routes');
 
 const authRouter = require('./routes/auth.routes');
 
+const app = express();
 
 const connectDB = require('./config/database');
-
-const app = express();
 connectDB();
+
+
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

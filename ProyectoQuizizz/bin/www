@@ -8,7 +8,9 @@ require('dotenv').config();
 const app = require('../app');
 const debug = require('debug')('proyectoquizizz:server');
 const http = require('http');
-
+const https = require('https');
+const fs = require('fs');
+var spdy = require('spdy');
 /**
  * Get port from environment and store in Express.
  */
@@ -19,9 +21,15 @@ app.set('port', port);
 /**
  * Create HTTP server.
  */
+// Leemos los certificados (ajusta la ruta si los moviste a una carpeta)
+const options = {
+  key: fs.readFileSync('./certs/key.pem'),
+  cert: fs.readFileSync('./certs/cert.pem')
+};
 
-const server = http.createServer(app);
-
+// Creamos el servidor HTTPS
+// const server = https.createServer(options, app);
+const server = spdy.createServer(options, app);
 /**
  * Listen on provided port, on all network interfaces.
  */
