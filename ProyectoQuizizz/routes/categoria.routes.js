@@ -2,16 +2,33 @@
 const express = require('express');
 const router = express.Router();
 const categoriaController = require('../controllers/categoria.controllers');
-
-router.post('/createCategoria', categoriaController.createCategoria);
-
-router.get('/getCategoria', categoriaController.getCategoria);
-
-router.get('/getCategoriaById/:id', categoriaController.getCategoriaById);
+const { verificarToken, autorizarRoles } = require('../middlewares/auth');
 
 
-router.put('/updateCategoria/:id', categoriaController.updateCategoria);
+router.post('/createCategoria',
+    verificarToken,
+    autorizarRoles(['admin']),
+    categoriaController.createCategoria);
 
-router.delete('/deleteCategoria/:id', categoriaController.deleteCategoria);
+router.get('/getCategoria',
+    verificarToken,
+    autorizarRoles(['admin', 'estudiante']),
+    categoriaController.getCategoria);
+
+router.get('/getCategoriaById/:id',
+    verificarToken,
+    autorizarRoles(['admin', 'estudiante']),
+    categoriaController.getCategoriaById);
+
+
+router.put('/updateCategoria/:id',
+    verificarToken,
+    autorizarRoles(['admin']),
+    categoriaController.updateCategoria);
+
+router.delete('/deleteCategoria/:id',
+    verificarToken,
+    autorizarRoles(['admin']),
+    categoriaController.deleteCategoria);
 
 module.exports = router;

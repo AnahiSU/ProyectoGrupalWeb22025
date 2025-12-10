@@ -1,17 +1,39 @@
 const express = require('express');
 const router = express.Router();
 const subCategoriaController = require('../controllers/subcategoria.controllers');
+const { verificarToken, autorizarRoles } = require('../middlewares/auth');
 
-router.post('/createSubCategoria', subCategoriaController.createSubCategoria);
 
-router.get('/getSubCategoria', subCategoriaController.getSubCategoria);
+router.post('/createSubCategoria',
+    verificarToken,
+    autorizarRoles(['admin']),
+    subCategoriaController.createSubCategoria);
 
-router.get('/getSubCategoriaById/:id', subCategoriaController.getSubCategoriaById);
+router.get('/getSubCategoria',
+    verificarToken,
+    autorizarRoles(['admin', 'estudiante']),
 
-router.get('/getSubCategoriaByCategoria/:idCategoria', subCategoriaController.getSubCategoriaByCategoria);
+    subCategoriaController.getSubCategoria);
 
-router.put('/updateSubCategoria/:id', subCategoriaController.updateSubCategoria);
+router.get('/getSubCategoriaById/:id',
+    verificarToken,
+    autorizarRoles(['admin', 'estudiante']),
+    subCategoriaController.getSubCategoriaById);
 
-router.delete('/deleteSubCategoria/:id', subCategoriaController.deleteSubCategoria);
+router.get('/getSubCategoriaByCategoria/:idCategoria',
+    verificarToken,
+    autorizarRoles(['admin', 'estudiante']),
+
+    subCategoriaController.getSubCategoriaByCategoria);
+
+router.put('/updateSubCategoria/:id',
+    verificarToken,
+    autorizarRoles(['admin']),
+    subCategoriaController.updateSubCategoria);
+
+router.delete('/deleteSubCategoria/:id',
+    verificarToken,
+    autorizarRoles(['admin']),
+    subCategoriaController.deleteSubCategoria);
 
 module.exports = router;
