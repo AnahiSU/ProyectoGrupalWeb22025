@@ -39,8 +39,8 @@ PORT = 3000
 Se deben generar los certificados dentro de la carpeta ProyectoQuizizz/certs con los nombres: key.pem y cert.pem
 Se pueden configurar sus rutas en bin/www
 
-# Generar certificados auto-firmados 
-openssl req -x509 -newkey rsa:4096 -keyout certs/key.pem -out certs/cert.pem -days 365 -nodes
+# Generar certificados auto-firmados dentro de ProyectoQuizizz/certs
+openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes
 ```
 
 Durante la generacion, se solicitara la siguiente informacion:
