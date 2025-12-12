@@ -178,3 +178,38 @@ Authorization: Bearer <TOKEN_JWT>
 - El servidor usa HTTPS en desarrollo (puerto 3000)
 - Nodemon está configurado para auto-reload en modo desarrollo
 - Los certificados SSL son auto-firmados (solo para desarrollo)
+
+
+
+## 8. Poblar Base de dados 
+## 8. Poblar Base de Datos
+
+El proyecto incluye un script para poblar la base de datos con datos iniciales de prueba (./ProyectoQuizizz/poblar.js).
+
+### 8.1 Ejecutar el script
+
+```bash
+npm run poblar
+```
+
+### 8.2 Datos que se crean
+
+El script creará automáticamente:
+
+- **2 Administradores**
+  - `admin@quizizz.com` / `admin123`
+  - `admin2@quizizz.com` / `admin123`
+
+- **4 Estudiantes**
+  - Todos con password: `estudiante123`
+  - Correos: juan@estudiante.com, maria@estudiante.com, carlos@estudiante.com, ana@estudiante.com
+
+- **5 Categorías**: Matemáticas, Ciencias, Historia, Lenguaje, Geografía
+
+- **10 Subcategorías** distribuidas entre las categorías principales
+
+- **5 Rangos de Edad**: 6-8, 9-11, 12-14, 15-17, 18-99 años
+
+- **5 Niveles de Dificultad**: Fácil, Básico, Intermedio, Avanzado, Experto
+
+
