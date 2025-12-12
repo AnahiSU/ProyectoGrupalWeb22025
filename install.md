@@ -40,6 +40,7 @@ Se deben generar los certificados dentro de la carpeta ProyectoQuizizz/certs con
 Se pueden configurar sus rutas en bin/www
 
 # Generar certificados auto-firmados dentro de ProyectoQuizizz/certs
+```
 openssl req -x509 -newkey rsa:2048 -keyout key.pem -out cert.pem -days 365 -nodes
 ```
 
@@ -161,7 +162,7 @@ Authorization: Bearer <TOKEN_JWT>
 
 ## 7. Informacion Adicional
 
-### Tecnologías Utilizadas
+### Tecnologias Utilizadas
 - **Node.js** + **Express** - Backend framework
 - **MongoDB** + **Mongoose** - Base de datos
 - **JWT** - Autenticación
