@@ -1,4 +1,4 @@
-# Manual de Instalacion - Proyecto Quizizz
+# Manual de Instalacion - Proyecto Tributos del 11
 
 ## Requisitos Previos
 
@@ -36,7 +36,8 @@ PORT = 3000
 ```
 
 ## 3. Configuracion de Certificados SSL (Desarrollo)
-Se deben generar los certificados dentro de la carpeta ProyectoQuizizz/certs
+Se deben generar los certificados dentro de la carpeta ProyectoQuizizz/certs con los nombres: key.pem y cert.pem
+Se pueden configurar sus rutas en bin/www
 
 # Generar certificados auto-firmados 
 openssl req -x509 -newkey rsa:4096 -keyout certs/key.pem -out certs/cert.pem -days 365 -nodes

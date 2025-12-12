@@ -3,3 +3,6 @@
 .env
 
 /ProyectoQuizizz/node_modules
+
+/ProyectoQuizizz/certs/cert.pem
+/ProyectoQuizizz/certs/key.pem
