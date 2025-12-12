@@ -20,12 +20,14 @@ async function login(req, res) {
         const data = await authService.login(nombre, password, email, rol);
         res.status(200).json({
             succes: true,
-            message: "Login exitoso"
+            message: "Login exitoso",
+            token: data.token,
+            usuario: data.usuario
         });
     } catch (err) {
         res.status(500).json({
             sucess: false,
-            message: "error al logear" + err.message
+            message: "error al logear " + err.message
         });
     }
 
