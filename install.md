@@ -181,8 +181,7 @@ Authorization: Bearer <TOKEN_JWT>
 
 
 
-## 8. Poblar Base de dados 
-## 8. Poblar Base de Datos
+## 8. Poblar Base de datos 
 
 El proyecto incluye un script para poblar la base de datos con datos iniciales de prueba (./ProyectoQuizizz/poblar.js).
 
